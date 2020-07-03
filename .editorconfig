@@ -1,0 +1,34 @@
+# http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{css,feature,html,js,json,jsx,scss,svg,xml,yaml,yml}]
+end_of_line = lf
+indent_size = 2
+
+[.babelrc]
+end_of_line = lf
+indent_size = 2
+
+[*.{ini,cfg}]
+indent_style = tab
+
+[{.coveragerc,.flake8,Makefile}]
+indent_style = tab
+
+[.bumpversion.cfg]
+indent_style = tab
+# .bumpversion.cfg gets rewritten by Python ConfigParser.
+# Ignore any changes to whitespace.
+insert_final_newline = false
+trim_trailing_whitespace = false

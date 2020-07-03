@@ -1,0 +1,61 @@
+version: '3.5'
+services:
+  mad-libz:
+    image: "${TAG:-mad-libz}"
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        JFROG_USERNAME: "${JFROG_USERNAME}"
+        JFROG_ACCESS_TOKEN: "${JFROG_ACCESS_TOKEN}"
+    volumes:
+      - ..:/app
+    environment:
+      # Any of these may by overridden in a ".env" file at the top-level.
+      DJANGO_DEBUG: "${DJANGO_DEBUG:-true}"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY:-foobar}"
+      DJANGO_DATABASE_URL: "${DJANGO_DATABASE_URL:-postgresql://mad_libz:mad_libz@db:5432/mad_libz}"
+      DJANGO_ALLOWED_HOSTS: "${DJANGO_ALLOWED_HOSTS:-*}"
+      MINTEL_LOGGING_LEVEL: "${MINTEL_LOGGING_LEVEL:-INFO}"
+    volumes:
+      - "nginx-conf:/etc/nginx/conf.d"
+      - "static-files:/static"
+    depends_on:
+      - db
+    networks:
+      - default
+      - everest
+
+  proxy:
+    image: "nginx:alpine"
+    volumes:
+      - "nginx-conf:/etc/nginx/conf.d:ro"
+      - "static-files:/static:ro"
+    depends_on:
+      - "mad-libz"
+    networks:
+      - default
+    ports:
+      - "${DJANGO_DEV_PORT}80"
+
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_USER: mad_libz
+      POSTGRES_PASSWORD: mad_libz
+      POSTGRES_DB: mad_libz
+    networks:
+      - default
+
+volumes:
+  nginx-conf:
+  static-files:
+
+networks:
+  default:
+
+  # This network is used to link multiple services together (usually dev sites for cross-service testing).
+  # Set `USE_EVEREST_NETWORK=true` in a ".env" file at the top-level to enable.
+  # You will have to create your own network named "everest".
+  everest:
+    external: ${USE_EVEREST_NETWORK:-false}
