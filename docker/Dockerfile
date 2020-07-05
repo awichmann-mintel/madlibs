@@ -9,9 +9,9 @@ ENV APP_DIR=/app \
 VOLUME ["/etc/nginx/conf.d", "${DJANGO_STATIC_ROOT}"]
 
 # Add scripts to do good Docker package management.
-COPY docker/install_packages.sh /usr/bin/install_packages
-COPY docker/upgrade_packages.sh /usr/bin/upgrade_packages
-COPY docker/remove_packages.sh /usr/bin/remove_packages
+COPY install_packages.sh /usr/bin/install_packages
+COPY upgrade_packages.sh /usr/bin/upgrade_packages
+COPY remove_packages.sh /usr/bin/remove_packages
 
 # Ensure that Python outputs everything that's printed inside
 # the application rather than buffering it.
@@ -28,7 +28,7 @@ RUN install_packages curl
 HEALTHCHECK CMD curl -f http://127.0.0.1/health-check/ || exit 1
 
 # Setup Docker entrypoint.
-COPY docker/docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Install Python dependencies.
