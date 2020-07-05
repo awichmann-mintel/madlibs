@@ -1,6 +1,7 @@
 [[source]]
-url = "https://${JFROG_USERNAME}:${JFROG_ACCESS_TOKEN}@mintel.jfrog.io/mintel/api/pypi/pypi/simple"
+url = "https://pypi.python.org/simple/"
 verify_ssl = true
+name = "pypi"
 
 [requires]
 python_version = "3.8"
@@ -12,7 +13,6 @@ django-environ = "*"
 django-health-check = "~=3.8"
 elasticsearch-dsl = "*"
 gunicorn = "~=19.9"
-mintel-logging = "*"
 psycopg2-binary = "*"
 requests = "*"
 urltools = "*"
