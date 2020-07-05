@@ -8,7 +8,7 @@ python_version = "3.8"
 
 [packages]
 boto3 = "*"
-django = "==2.1.*"
+django = "==2.2.*"
 django-environ = "*"
 django-health-check = "~=3.8"
 elasticsearch-dsl = "*"
