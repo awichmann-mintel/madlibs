@@ -88,7 +88,6 @@ INSTALLED_APPS = [
     "health_check.cache",
     "health_check.db",
     "django_extensions",
-    "gatekeeper",
     # Local apps
     "mad_libz",
 ]
@@ -99,7 +98,6 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "gatekeeper.middleware.GatekeeperAuthMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -151,7 +149,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-AUTHENTICATION_BACKENDS = ["gatekeeper.auth.GatekeeperAuthBackend"]
 GK_EXEMPT_URLS = ["health_check_home"]
 GK_UPDATE_BASE_URL = True
 GK_ROLES = []

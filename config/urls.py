@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path(r"health-check/", include("health_check.urls")),
-    path(r"auth/", include("gatekeeper.urls")),
     path("", include("mad_libz.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
