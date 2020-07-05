@@ -15,8 +15,6 @@ import os
 
 import environ
 import requests
-from mintel_logging import LogLevel
-from mintel_logging.contrib import capture_loggers
 
 logger = logging.getLogger("mintel.config")
 BASE_DIR = environ.Path(__file__) - 2
@@ -36,10 +34,6 @@ if os.path.exists(env_file):
 
 
 LOGGING_CONFIG = None
-capture_loggers(
-    "everest.mad-libz",
-    env("MINTEL_LOGGING_LEVEL", default=LogLevel.INFO, cast=LogLevel.__members__.get),
-)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
@@ -53,9 +47,7 @@ def _default_secret_key():
         return env.NOTSET
     import uuid
 
-    return str(
-        uuid.uuid3(uuid.NAMESPACE_URL, """mad-libz""")
-    )
+    return str(uuid.uuid3(uuid.NAMESPACE_URL, """mad-libz"""))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
